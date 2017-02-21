@@ -35,3 +35,40 @@ public class FileListing {
 		}
 	}
 }
+2.
+Program:
+
+import java.io.*;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.LocatedFileStatus:
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.fs.FileStatus;
+
+public class FileListing {
+	public static void main(String[] args) {
+		if (args.length != 1) {
+			System.out.println("Enter anyone argument");
+			System.exit(1);
+		}
+		
+		Path p = new Path(args[0]);
+		
+		try
+		{
+			Configuration c = new Configuration();
+			FileSystem fileSystem = FileSystem.get(p.toUri(), c);
+			FileStatus[] filestatus=filesystem.listStatus(p);
+			RemoteIterator<LocatedFileStatus> it =filesystem.listFiles(p,true);
+			while(it.hasNext()) 
+			{
+				System.out.println(it.next().getPath());
+			}
+
+		}
+		catch (IOException e)
+		{
+            e.printStackTrace();
+		}
+	}
+}
