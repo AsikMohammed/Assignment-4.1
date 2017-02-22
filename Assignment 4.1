@@ -72,3 +72,45 @@ public class FileListing {
 		}
 	}
 }
+
+3.
+import java.io.*;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.fs.RemoteIterator;
+import org.apache.hadoop.fs.LocatedFileStatus;
+
+public class FileListing {
+public static void main(String[] args) {
+Int l=args.length;		
+
+for(int i=0;i<l;i++)
+{
+Path path=new Path(args[i]);		
+try
+{
+Configuration conf = new Configuration();
+
+FileSystem fileSystem = FileSystem.get(path.toUri(), conf);
+RemoteIterator<LocatedFileStatus>it=fileSystem.listFiles(path,true)
+//recursive set to true(second parameter)
+
+System.out.println(“for argument : “+args[i]);
+While(it.hasNext())
+{
+	System.out.println(it.next().getPath());
+
+}
+
+
+}
+catch (IOException e)
+{
+   e.printStackTrace();
+}
+
+}
+
+}}
+
